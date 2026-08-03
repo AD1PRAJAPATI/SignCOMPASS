@@ -1,0 +1,53 @@
+#!/bin/bash
+#SBATCH --job-name=pose_extract
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=32GB
+#SBATCH --partition=nlp
+#SBATCH --time=48:00:00
+#SBATCH --account=jessetho_1732
+
+# No GPU needed — MediaPipe runs on CPU only.
+# 8 workers × ~0.5s per video × 83,399 videos ≈ 5–10 hours.
+# 48h gives plenty of headroom.
+
+set -euo pipefail
+TS=$(date +"%Y%m%d_%H%M%S")
+BASE_DIR="/project2/jessetho_1732/aditeya/islr_pipeline/"
+mkdir -p "${BASE_DIR}/logs"
+exec > "${BASE_DIR}/logs/pose_extract_${TS}.out" \
+     2> "${BASE_DIR}/logs/pose_extract_${TS}.err"
+
+echo "Job started on $(hostname) at $(date)"
+echo "CPUs allocated: ${SLURM_CPUS_ON_NODE}"
+
+source /home1/aditeyak/miniconda3/etc/profile.d/conda.sh
+conda activate /project2/jessetho_1732/aditeya/envs/cslr
+export PATH=/project2/jessetho_1732/aditeya/envs/cslr/bin:$PATH
+
+cd "$BASE_DIR"
+
+VIDEO_DIR="/project2/jessetho_1732/aditeya/data/asl_citizen/ASL_Citizen/videos"
+OUT_DIR="/project2/jessetho_1732/aditeya/data/asl_citizen/pose_features"
+
+# Verify video directory exists before starting
+if [[ ! -d "${VIDEO_DIR}" ]]; then
+    echo "ERROR: Video directory not found: ${VIDEO_DIR}"
+    echo "Run python download_asl_citizen.py first."
+    exit 1
+fi
+
+N_VIDS=$(ls "${VIDEO_DIR}"/*.mp4 2>/dev/null | wc -l || echo 0)
+echo "Videos found: ${N_VIDS}"
+
+python extract_pose_islr.py \
+    --video_dir  "${VIDEO_DIR}" \
+    --out_dir    "${OUT_DIR}"   \
+    --workers    8              \
+    --model_complexity 1
+
+echo ""
+echo "Extraction finished at $(date)"
+N_DONE=$(ls "${OUT_DIR}"/*.pt 2>/dev/null | wc -l || echo 0)
+echo "Pose features saved: ${N_DONE} / ${N_VIDS}"
