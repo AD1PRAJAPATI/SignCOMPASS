@@ -7,11 +7,11 @@
 #SBATCH --gres=gpu:1
 #SBATCH --partition=nlp
 #SBATCH --time=04:00:00
-#SBATCH --account=jessetho_1732
+#SBATCH --account=YOUR_SLURM_ACCOUNT
 set -euo pipefail
-export ISLR=/project2/jessetho_1732/aditeya/islr_pipeline
-source /home1/aditeyak/miniconda3/etc/profile.d/conda.sh
-conda activate /project2/jessetho_1732/aditeya/envs/cslr
+export ISLR=${PROJECT_ROOT}/islr_pipeline
+source ${HOME}/miniconda3/etc/profile.d/conda.sh
+conda activate ${PROJECT_ROOT}/envs/cslr
 cd "$(dirname "$0")"
 CKPT=$ISLR/checkpoints_fusion/fusion_pose_base_seed42/best.pt
 VOCAB=$ISLR/checkpoints_fusion/fusion_pose_base_seed42/vocab.json

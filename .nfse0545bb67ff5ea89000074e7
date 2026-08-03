@@ -7,7 +7,7 @@ ap = argparse.ArgumentParser()
 ap.add_argument("--pose_ckpt", required=True)
 ap.add_argument("--rgb_ckpt", required=True)
 ap.add_argument("--rgb_dir", required=True)
-ap.add_argument("--data_root", default="${PROJECT_ROOT}")
+ap.add_argument("--data_root", default="/project2/jessetho_1732/aditeya")
 a = ap.parse_args()
 dev = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

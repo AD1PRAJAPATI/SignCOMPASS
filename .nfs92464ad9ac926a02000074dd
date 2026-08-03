@@ -42,11 +42,3 @@ kaggle.json
 *.command
 *.sbatch
 *.command
-checkpoints_*/
-ckpt_*/
-*.command
-DEPLOY.md
-RUNBOOK_SHUBERT.md
-*_full_pipeline.sh
-*_env.sh
-*_setup.sh

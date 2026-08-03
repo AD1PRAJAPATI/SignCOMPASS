@@ -55,7 +55,7 @@ def main(a):
 
 if __name__=="__main__":
     p=argparse.ArgumentParser()
-    p.add_argument("--rgb_dir",required=True); p.add_argument("--data_root",default="${PROJECT_ROOT}")
+    p.add_argument("--rgb_dir",required=True); p.add_argument("--data_root",default="/project2/jessetho_1732/aditeya")
     p.add_argument("--save_dir",default="checkpoints_cofusion"); p.add_argument("--size",default="base")
     p.add_argument("--epochs",type=int,default=120); p.add_argument("--warmup_epochs",type=int,default=5)
     p.add_argument("--batch_size",type=int,default=128); p.add_argument("--lr",type=float,default=5e-4)

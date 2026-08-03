@@ -1,5 +1,5 @@
 import json, os, pandas as pd
-ROOT="${PROJECT_ROOT}/data/wlasl"
+ROOT="/project2/jessetho_1732/aditeya/data/wlasl"
 VID=os.path.join(ROOT,"videos")
 data=json.load(open(os.path.join(ROOT,"WLASL_v0.3.json")))
 rows=[]; total={}; present={}

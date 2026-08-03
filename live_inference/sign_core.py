@@ -2,7 +2,7 @@
 sign_core.py — shared helpers for the live demo AND personalization.
 Load the pose model, turn MediaPipe keypoints into a 256-d embedding (a sign
 "fingerprint"), build the prototype gallery and do cosine-similarity top-k.
-If needed:  export ISLR=/project2/jessetho_1732/aditeya/islr_pipeline
+If needed:  export ISLR=${PROJECT_ROOT}/islr_pipeline
 """
 import os, sys, json
 import numpy as np

@@ -48,7 +48,7 @@ from tqdm import tqdm
 
 SCRIPT_DIR   = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
-BASE_DIR     = "${PROJECT_ROOT}"
+BASE_DIR     = "/project2/jessetho_1732/aditeya"
 ASL_DIR      = os.path.join(PROJECT_ROOT, "data", "asl_citizen")
 
 SHUBERT_REPO = os.path.join(BASE_DIR, "SHuBERT")

@@ -111,9 +111,9 @@ def main(a):
 
 if __name__=="__main__":
     p=argparse.ArgumentParser()
-    p.add_argument("--ckpt",default="${PROJECT_ROOT}/data/shubert_weights/shubert.pt")
+    p.add_argument("--ckpt",default="/project2/jessetho_1732/aditeya/data/shubert_weights/shubert.pt")
     p.add_argument("--init_ft",default=None,help="resume/warm-start from a prior SHFT best.pt")
-    p.add_argument("--data_root",default="${PROJECT_ROOT}");p.add_argument("--save_dir",default="ckpt_shubert_ft")
+    p.add_argument("--data_root",default="/project2/jessetho_1732/aditeya");p.add_argument("--save_dir",default="ckpt_shubert_ft")
     p.add_argument("--freeze_backbone",action="store_true")
     p.add_argument("--epochs",type=int,default=40);p.add_argument("--warmup_epochs",type=int,default=3)
     p.add_argument("--batch_size",type=int,default=32);p.add_argument("--lr",type=float,default=5e-4)

@@ -1,6 +1,6 @@
 import os, csv, collections
-ROOT="${PROJECT_ROOT}/data/autsl/AUTSL"
-OUT="${PROJECT_ROOT}/data/autsl/metadata.csv"
+ROOT="/project2/jessetho_1732/aditeya/data/autsl/AUTSL"
+OUT="/project2/jessetho_1732/aditeya/data/autsl/metadata.csv"
 rows=[]
 for split in ["train","val","test"]:
     cp=os.path.join(ROOT,split+".csv"); vd=os.path.join(ROOT,split)

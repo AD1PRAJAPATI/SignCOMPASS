@@ -1,6 +1,6 @@
 source ~/semlex_paths.sh
 cd "$ISLR"
-PY=${PROJECT_ROOT}/envs/cslr/bin/python
+PY=/project2/jessetho_1732/aditeya/envs/cslr/bin/python
 
 # 1) test coverage + rebuild remaining-only dino lists
 $PY - <<'PY'

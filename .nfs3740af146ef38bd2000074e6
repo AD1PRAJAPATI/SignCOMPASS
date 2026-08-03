@@ -7,7 +7,7 @@ Prereqs:
     Get WLASL_v0.3.json from https://github.com/dxli94/WLASL (start_kit), place its path below.
 
 Usage:
-    python download_wlasl.py --json /path/WLASL_v0.3.json --out_root ${PROJECT_ROOT}/data/wlasl
+    python download_wlasl.py --json /path/WLASL_v0.3.json --out_root /project2/jessetho_1732/aditeya/data/wlasl
 Heavy link rot is expected; dead URLs are logged to failures.txt and just skipped.
 """
 import argparse, json, os, subprocess, csv

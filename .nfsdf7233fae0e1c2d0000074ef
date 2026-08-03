@@ -59,8 +59,8 @@ def main(a):
     print(f"  pose={top(tp,ty)[1]:.2f} | shubert_ft={top(ts,ty)[1]:.2f}")
 if __name__=="__main__":
     p=argparse.ArgumentParser()
-    p.add_argument("--data_root",default="${PROJECT_ROOT}")
-    p.add_argument("--pose_ckpt",default="${PROJECT_ROOT}/islr_pipeline/checkpoints_fusion/fusion_pose_base_seed42/best.pt")
-    p.add_argument("--shft_ckpt",default="${PROJECT_ROOT}/islr_pipeline/ckpt_shubert_ft/best.pt")
-    p.add_argument("--shubert_base",default="${PROJECT_ROOT}/data/shubert_weights/shubert.pt")
+    p.add_argument("--data_root",default="/project2/jessetho_1732/aditeya")
+    p.add_argument("--pose_ckpt",default="/project2/jessetho_1732/aditeya/islr_pipeline/checkpoints_fusion/fusion_pose_base_seed42/best.pt")
+    p.add_argument("--shft_ckpt",default="/project2/jessetho_1732/aditeya/islr_pipeline/ckpt_shubert_ft/best.pt")
+    p.add_argument("--shubert_base",default="/project2/jessetho_1732/aditeya/data/shubert_weights/shubert.pt")
     main(p.parse_args())

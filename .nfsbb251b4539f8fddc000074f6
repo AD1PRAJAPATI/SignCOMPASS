@@ -19,7 +19,7 @@
 set -euo pipefail
 
 # ── Paths — edit if needed ─────────────────────────────────────────────────────
-BASE_DIR="${PROJECT_ROOT}"
+BASE_DIR="/project2/jessetho_1732/aditeya"
 SHUBERT_DIR="${BASE_DIR}/SHuBERT"
 WEIGHTS_DIR="${BASE_DIR}/data/shubert_weights"
 CONDA_ENV="${BASE_DIR}/envs/cslr"    # reuse existing env if possible
@@ -50,7 +50,7 @@ fi
 # with --no-deps and manually add the handful of required packages.
 echo ""
 echo "[Step 2] Installing SHuBERT's fairseq fork (pip>=24 workaround)..."
-source ${HOME}/miniconda3/etc/profile.d/conda.sh
+source /home1/aditeyak/miniconda3/etc/profile.d/conda.sh
 conda activate "${CONDA_ENV}"
 
 # 2a: Install omegaconf using a pinned pip that accepts the old metadata

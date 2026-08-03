@@ -1,5 +1,5 @@
 import pandas as pd, os
-ROOT="${PROJECT_ROOT}/data/sem_lex"
+ROOT="/project2/jessetho_1732/aditeya/data/sem_lex"
 df = pd.read_csv(os.path.join(ROOT,"semlex_metadata.csv"))
 df = df[df["label_type"]=="asllex"].copy()          # the 3,149-sign benchmark vocab (has phonology)
 out = pd.DataFrame({
