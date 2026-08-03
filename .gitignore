@@ -38,3 +38,7 @@ kaggle.json
 *credentials*
 .DS_Store
 ._*
+*.sbatch
+*.command
+*.sbatch
+*.command
