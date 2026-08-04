@@ -1,6 +1,6 @@
-# SignCOMPASS
+# Poses and Pixels
 
-**COMPASS: Complementary Motion and Appearance Streams for Isolated Sign Recognition**
+**Modeling Complementary Inputs Improves Isolated Sign Recognition**
 
 Anonymized code release for peer review. Two-stream isolated sign language recognition: a pose stream (MediaPipe keypoints -> Conformer) captures motion, an appearance stream (MediaPipe face/hand crops -> DINOv2 -> fine-tuned SHuBERT) captures shape, and a simple score fusion combines them.
 
