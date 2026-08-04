@@ -2,7 +2,7 @@
 # After dino finishes: only submit ensemble if test usable >= 1000.
 set -euo pipefail
 source ~/semlex_paths.sh
-PY=/project2/jessetho_1732/aditeya/envs/cslr/bin/python
+PY=${PROJECT_ROOT}/envs/cslr/bin/python
 $PY - <<'PY'
 import csv, os, os.path as P
 S=os.environ["SEMLEX"]; W=os.environ["WORK"]; ISLR=os.environ["ISLR"]

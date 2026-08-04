@@ -7,7 +7,7 @@ set -euo pipefail
 source ~/semlex_paths.sh
 source "$ISLR/include_env.sh"
 cd "$ISLR"
-PY=/project2/jessetho_1732/aditeya/envs/cslr/bin/python
+PY=${PROJECT_ROOT}/envs/cslr/bin/python
 mkdir -p "$ISLR/logs"
 chmod +x "$ISLR/include_official_eval.sh" 2>/dev/null || true
 
@@ -107,13 +107,13 @@ PY
 #!/bin/bash
 #SBATCH --job-name=incl_pose_o
 #SBATCH --nodes=1 --ntasks=1 --cpus-per-task=4 --mem=64GB
-#SBATCH --partition=nlp --time=12:00:00 --account=jessetho_1732 --requeue
-#SBATCH --output=/project2/jessetho_1732/aditeya/islr_pipeline/logs/include_pose_official_%j.out
+#SBATCH --partition=nlp --time=12:00:00 --account=YOUR_ACCOUNT --requeue
+#SBATCH --output=${PROJECT_ROOT}/islr_pipeline/logs/include_pose_official_%j.out
 set -euo pipefail
 source ~/semlex_paths.sh; source "$ISLR/include_env.sh"
 module purge 2>/dev/null || true; unset LD_LIBRARY_PATH || true
-source /home1/aditeyak/miniconda3/etc/profile.d/conda.sh
-conda activate /project2/jessetho_1732/aditeya/envs/cslr
+source ${HOME}/miniconda3/etc/profile.d/conda.sh
+conda activate ${PROJECT_ROOT}/envs/cslr
 cd "$ISLR"
 for ext in .MOV .mov .mp4; do
   n=$(ls "$INCLUDE/_pose_todo_official"/*"$ext" 2>/dev/null | wc -l || true)
@@ -144,13 +144,13 @@ with gzip.GzipFile(P.join(W,"videos.list"),"wb") as f: f.write(pickle.dumps(vids
 print("videos.list", len(vids))
 PY
   JK=$(sbatch --parsable --requeue incl_kpe.sbatch); echo "kpe = $JK"
-  JL1=$(sbatch --parsable -A jessetho_1732 -p nlp -t 00:30:00 --mem=8G -c 2 \
+  JL1=$(sbatch --parsable -A YOUR_ACCOUNT -p nlp -t 00:30:00 --mem=8G -c 2 \
     -o $ISLR/logs/glue_%j.out -J incl_off_l1 --dependency=afterany:$JK \
     --wrap "source ~/semlex_paths.sh; source $ISLR/include_env.sh; $PY $ISLR/include_rebuild_lists.py remaining")
   JCF=$(sbatch --parsable --requeue --dependency=afterok:$JL1 incl_crop_face.sbatch)
   JCH=$(sbatch --parsable --requeue --dependency=afterok:$JL1 incl_crop_hands.sbatch)
   JB=$(sbatch --parsable --requeue --dependency=afterok:$JL1 incl_body.sbatch)
-  JL2=$(sbatch --parsable -A jessetho_1732 -p nlp -t 00:30:00 --mem=8G -c 2 \
+  JL2=$(sbatch --parsable -A YOUR_ACCOUNT -p nlp -t 00:30:00 --mem=8G -c 2 \
     -o $ISLR/logs/glue_%j.out -J incl_off_l2 --dependency=afterany:$JCF:$JCH \
     --wrap "source ~/semlex_paths.sh; source $ISLR/include_env.sh; $PY $ISLR/include_rebuild_lists.py dino")
   JD=$(sbatch --parsable --requeue --dependency=afterok:$JL2 incl_dino.sbatch)
@@ -167,14 +167,14 @@ cat > "$ISLR/incl_train_official.sbatch" <<'SBEOF'
 #!/bin/bash
 #SBATCH --job-name=incl_train_hf
 #SBATCH --nodes=1 --ntasks=1 --cpus-per-task=8 --mem=64GB --gres=gpu:a100:1
-#SBATCH --partition=nlp --time=24:00:00 --account=jessetho_1732 --requeue
-#SBATCH --output=/project2/jessetho_1732/aditeya/islr_pipeline/logs/incl_train_hf_%j.out
+#SBATCH --partition=nlp --time=24:00:00 --account=YOUR_ACCOUNT --requeue
+#SBATCH --output=${PROJECT_ROOT}/islr_pipeline/logs/incl_train_hf_%j.out
 set -euo pipefail
 source ~/semlex_paths.sh
 source "$ISLR/include_env.sh"
 module purge 2>/dev/null; unset LD_LIBRARY_PATH
-source /home1/aditeyak/miniconda3/etc/profile.d/conda.sh
-conda activate /project2/jessetho_1732/aditeya/envs/cslr
+source ${HOME}/miniconda3/etc/profile.d/conda.sh
+conda activate ${PROJECT_ROOT}/envs/cslr
 export PYTHONPATH="$REPO:$REPO/fairseq:${PYTHONPATH:-}"
 export ISLR_DATASET=include
 cd "$ISLR"
@@ -201,17 +201,17 @@ PY
 
 echo "=== OFFICIAL INCLUDE pose train ==="
 python train_fusion.py --streams pose --seed 42 \
-  --data_root /project2/jessetho_1732/aditeya \
+  --data_root ${PROJECT_ROOT} \
   --save_dir ckpt_include_pose_hf --epochs 80 --num_workers 4
 
 echo "=== OFFICIAL INCLUDE SHuBERT-FT ==="
 python train_shubert_ft.py --epochs 40 --batch_size 32 --seed 42 \
-  --data_root /project2/jessetho_1732/aditeya \
+  --data_root ${PROJECT_ROOT} \
   --save_dir ckpt_include_shft_hf \
   --ckpt "$W/shubert.pt" --num_workers 4
 
 echo "=== OFFICIAL INCLUDE ensemble ==="
-python multi_ensemble.py --data_root /project2/jessetho_1732/aditeya \
+python multi_ensemble.py --data_root ${PROJECT_ROOT} \
   --pose_ckpt $ISLR/ckpt_include_pose_hf/fusion_pose_base_seed42/best.pt \
   --shft_ckpt $ISLR/ckpt_include_shft_hf/best.pt \
   --shubert_base $W/shubert.pt

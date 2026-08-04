@@ -6,8 +6,8 @@ set -euo pipefail
 source ~/semlex_paths.sh
 cd "$ISLR"
 mkdir -p "$ISLR/logs"
-PY=/project2/jessetho_1732/aditeya/envs/cslr/bin/python
-GLUE="--parsable -A jessetho_1732 -p nlp -t 00:30:00 --mem=8G -c 2 -o $ISLR/logs/glue_%j.out"
+PY=${PROJECT_ROOT}/envs/cslr/bin/python
+GLUE="--parsable -A YOUR_ACCOUNT -p nlp -t 00:30:00 --mem=8G -c 2 -o $ISLR/logs/glue_%j.out"
 chmod +x "$ISLR/check_usable_then_ensemble.sh" "$ISLR/fix_stubs_recrop.sh" 2>/dev/null || true
 
 echo "=== 1) delete stub crops (test ids) + archive problem files ==="

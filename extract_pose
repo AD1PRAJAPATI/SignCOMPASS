@@ -6,7 +6,7 @@
 #SBATCH --mem=32GB
 #SBATCH --partition=nlp
 #SBATCH --time=48:00:00
-#SBATCH --account=jessetho_1732
+#SBATCH --account=YOUR_ACCOUNT
 
 # No GPU needed — MediaPipe runs on CPU only.
 # 8 workers × ~0.5s per video × 83,399 videos ≈ 5–10 hours.
@@ -14,7 +14,7 @@
 
 set -euo pipefail
 TS=$(date +"%Y%m%d_%H%M%S")
-BASE_DIR="/project2/jessetho_1732/aditeya/islr_pipeline/"
+BASE_DIR="${PROJECT_ROOT}/islr_pipeline/"
 mkdir -p "${BASE_DIR}/logs"
 exec > "${BASE_DIR}/logs/pose_extract_${TS}.out" \
      2> "${BASE_DIR}/logs/pose_extract_${TS}.err"
@@ -22,14 +22,14 @@ exec > "${BASE_DIR}/logs/pose_extract_${TS}.out" \
 echo "Job started on $(hostname) at $(date)"
 echo "CPUs allocated: ${SLURM_CPUS_ON_NODE}"
 
-source /home1/aditeyak/miniconda3/etc/profile.d/conda.sh
-conda activate /project2/jessetho_1732/aditeya/envs/cslr
-export PATH=/project2/jessetho_1732/aditeya/envs/cslr/bin:$PATH
+source ${HOME}/miniconda3/etc/profile.d/conda.sh
+conda activate ${PROJECT_ROOT}/envs/cslr
+export PATH=${PROJECT_ROOT}/envs/cslr/bin:$PATH
 
 cd "$BASE_DIR"
 
-VIDEO_DIR="/project2/jessetho_1732/aditeya/data/asl_citizen/ASL_Citizen/videos"
-OUT_DIR="/project2/jessetho_1732/aditeya/data/asl_citizen/pose_features"
+VIDEO_DIR="${PROJECT_ROOT}/data/asl_citizen/ASL_Citizen/videos"
+OUT_DIR="${PROJECT_ROOT}/data/asl_citizen/pose_features"
 
 # Verify video directory exists before starting
 if [[ ! -d "${VIDEO_DIR}" ]]; then

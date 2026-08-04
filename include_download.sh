@@ -2,7 +2,7 @@
 # Download INCLUDE (Indian Sign Language) from Zenodo — no registration.
 # Run on the cluster login node.
 set -euo pipefail
-DEST=${1:-/scratch1/aditeyak/include}
+DEST=${1:-${SCRATCH}/include}
 mkdir -p "$DEST/raw"
 cd "$DEST/raw"
 
@@ -52,5 +52,5 @@ echo
 echo "INCLUDE videos are .MOV (not .mp4). Verify:"
 echo "  find $DEST -iname '*.mov' | wc -l   # expect ~4287"
 echo
-echo "Next: ln -sfn $DEST /project2/jessetho_1732/aditeya/data/include"
-echo "Then: python include_make_metadata.py --root /project2/jessetho_1732/aditeya/data/include"
+echo "Next: ln -sfn $DEST ${PROJECT_ROOT}/data/include"
+echo "Then: python include_make_metadata.py --root ${PROJECT_ROOT}/data/include"

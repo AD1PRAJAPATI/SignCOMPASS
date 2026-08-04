@@ -1,5 +1,5 @@
 source ~/semlex_paths.sh
-PY=/project2/jessetho_1732/aditeya/envs/cslr/bin/python
+PY=${PROJECT_ROOT}/envs/cslr/bin/python
 echo "===== stage states (non-COMPLETED shown) ====="
 sacct -X -j 5165737,5165738,5165739,5165740,5165741,5165742,5165743,5165744,5165745,5165746,5165747 \
   --format=JobID%14,JobName%12,State%16,ExitCode,Elapsed,Timelimit | grep -Ev 'COMPLETED'
